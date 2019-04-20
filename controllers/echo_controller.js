@@ -7,7 +7,13 @@ function echoGet(req,res,next){
     console.log("ECHO: Get");
     let echoID = (typeof req.params.id === 'undefined') ? '' : req.params.id;
     res.header("x-header", "header content #1");
-    return res.json({status: 200, msg: 'echo', name: Config.system.name, id: echoID, query: req.query});
+    return res.json({
+        status: 200, 
+        msg: 'echo', 
+        name: Config.system.name, 
+        id: echoID, 
+        query: req.query
+    });
 }
 
 function echoPost(req,res,next){
