@@ -4,6 +4,7 @@ Bridge code that makes it easy to migrate the existing REST API to AWS Serverles
 
 
 ## Table of Contents
+
 <details>
 <summary>Click to expand</summary>
 - [Objective](#objective)
