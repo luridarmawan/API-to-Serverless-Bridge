@@ -7,8 +7,10 @@ Bridge code that makes it easy to migrate the existing REST API to AWS Serverles
 
 <details>
 <summary>Click to expand</summary>
+
 - [Objective](#objective)
 - [Contributing](#contributing)
+
 </details>
 
 
