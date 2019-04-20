@@ -12,6 +12,7 @@ Bridge code that makes it easy to migrate the existing REST API to [AWS](https:/
 - [Brief](#brief)
 - [Solution](#solution)
 - [How to Build](#how-to-build)
+- [Conclusion](#conclusion)
 - [Contributing](#contributing)
 - [References](#references)
 
@@ -260,6 +261,11 @@ $ curl -X POST \
 }
 ```
 
+## Conclusion
+
+As long as your API code is still quite simple, it is possible to start implementing serverless easily, without any changes from the previous code.
+
+If you are going to start building applications with serverless infrastructure, but still want to keep the code running as a common API, this method can be an alternative.
 
 ## Contributing
 
