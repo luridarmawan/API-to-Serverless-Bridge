@@ -92,15 +92,23 @@ AWS Lambda function code:
 module.exports.yourFunction = async (event, context, callback) => {
     //
     //
+    //
 };
 ```
 
 that 'event' variable has everything that we need, like header, method, params, querystring, raw body, etc.
 
+*So, how do I use AWS Lambda, but I don't want to make many changes to my code? And the PATH URL must be the same as before.*
+
 ## Solution
 
 I have created a **wrapper** / **bridge** that will make it easier to combine AWS Lambda into the existing API Controller and embed it with the API Gateway, but still has the same URL path.
 
+[See file "lambda_handler.js"](lambda_handler.js)
+
+## How to Build
+
+..
 
 ## Contributing
 
