@@ -11,6 +11,7 @@ Bridge code that makes it easy to migrate the existing REST API to [AWS](https:/
 - [Objective](#objective)
 - [Brief](#brief)
 - [Solution](#solution)
+- [How to Build](#how-to-build)
 - [Contributing](#contributing)
 - [References](#references)
 
@@ -108,7 +109,157 @@ I have created a **wrapper** / **bridge** that will make it easier to combine AW
 
 ## How to Build
 
-..
+### Build as Common API
+
+You can build this repo both as a conventional API and as serverless.
+
+similar to other APIs developed with nodes, you can use npm or yarn.
+
+```bash
+$ yarn
+$ node index.js
+Listening on port 300
+```
+
+if you use nodemon:
+
+```bash
+$ yarn
+$ nodemon index.js
+[nodemon] 1.18.11
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching: *.*
+[nodemon] starting `node index.js`
+Listening on port 3000
+```
+
+we can access the API with this url:
+
+- http://localhost:3000/test/echo?var1=value1
+- http://localhost:3000/test/echo/123?var1=value1
+
+Manual test from terminal, method GET
+
+```bash
+$ curl "http://localhost:3000/test/echo/123?var1=value1"
+{
+  "status": 200,
+  "msg": "echo",
+  "name": "Your System Name",
+  "id": "123",
+  "query": {
+    "var1": "value1"
+  }
+}
+```
+
+Manual test from terminal, method POST
+
+```bash
+$ curl -X POST \
+  "http://localhost:3000/test/echo?var1=value1&var2=value2" \
+  -H 'Content-Type: application/json' \
+  -H 'client-id: yourClientID' \
+  -H 'client-id: yourClientSecret' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "post01": "data 01",
+    "post02": "data 02"
+}'
+
+{
+  "status": 200,
+  "msg": "echo",
+  "query": {
+    "var1": "value1",
+    "var2": "value2"
+  },
+  "data": {
+    "post01": "data 01",
+    "post02": "data 02"
+  }
+}
+```
+
+### Build as AWS Lambda / API Gateway
+
+Make sure read the documentation of [Nodejs Serverless Framework](https://serverless.com/framework/docs/).
+
+[see serverless configuration file](serverless.yml)
+
+```bash
+$ serverless deploy
+Serverless: Packaging service...
+Serverless: Excluding development dependencies...
+Serverless: Uploading CloudFormation file to S3...
+Serverless: Uploading artifacts...
+Serverless: Uploading service bridge.zip file to S3 (2.88 MB)...
+Serverless: Validating template...
+Serverless: Updating Stack...
+Serverless: Checking Stack update progress...
+................................
+Serverless: Stack update finished...
+Service Information
+api keys:
+  None
+endpoints:
+  GET - https://****.execute-api.ap-southeast-1.amazonaws.com/dev/{parameters+}
+  GET - https://****.execute-api.ap-southeast-1.amazonaws.com/dev/test/echo/{id+}
+  GET - https://****.execute-api.ap-southeast-1.amazonaws.com/dev/test/echo/{id}
+  POST - https://****.execute-api.ap-southeast-1.amazonaws.com/dev/test/echo
+functions:
+  app: bridge-dev-app
+  getDetail1: bridge-dev-getDetail1
+  getDetail: bridge-dev-getDetail
+  postExample: bridge-dev-postExample
+
+```
+
+This command will automatically create the **Serverless Lambda Function** and **API Gateway** in the AWS account.
+
+Manual test from terminal, method GET
+
+```bash
+$ curl "https://****.execute-api.ap-southeast-1.amazonaws.com/dev/test/echo/123?var1=value1"
+{
+  "status": 200,
+  "msg": "echo",
+  "name": "Your System Name",
+  "id": "123",
+  "query": {
+    "var1": "value1"
+  }
+}
+```
+
+Manual test from terminal, method POST
+
+```bash
+$ curl -X POST \
+  "https://****.execute-api.ap-southeast-1.amazonaws.com/dev/test/echo?var1=value1&var2=value2" \
+  -H 'Content-Type: application/json' \
+  -H 'client-id: yourClientID' \
+  -H 'client-id: yourClientSecret' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "post01": "data 01",
+    "post02": "data 02"
+}'
+
+{
+  "status": 200,
+  "msg": "echo",
+  "query": {
+    "var1": "value1",
+    "var2": "value2"
+  },
+  "data": {
+    "post01": "data 01",
+    "post02": "data 02"
+  }
+}
+```
+
 
 ## Contributing
 
@@ -118,4 +269,4 @@ We are happy to accept more line code from the community. 🎉
 
 - [Amazon AWS Lambda Documentation](https://docs.aws.amazon.com/lambda/index.html)
 - [Amazon AWS API Gateway Documentation](https://docs.aws.amazon.com/apigateway/index.html)
-- [Toolkit for building serverless applications](https://serverless.com/)
+- [Nodejs Serverless Framework](https://serverless.com/)
