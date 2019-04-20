@@ -37,7 +37,7 @@ This repository does not contain:
 
 ## Brief
 
-For example, in the current API, we have  API url that gives echo from all value that receipt (GET):
+Imagine, in the current API, we have  API url that gives echo from all value that receipt (GET):
 
 [http://localhost:3000/test/echo?var1=value1&var2=value2](http://localhost:3000/test/echo?var1=value1&var2=value2)
 
