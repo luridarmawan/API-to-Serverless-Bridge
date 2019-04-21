@@ -3,7 +3,11 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
- 
+
+const config = require('./config/config').Config;
+const environment = config.environment;
+const Config = config[environment];
+
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -98,28 +102,33 @@ function onListening() {
 }
   
 // Socket Server 
-io.on('connection', function(socket){
-  console.log('an user connected');
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
-io.sockets.on('connection', function (socket) {
-  console.log('socket server started')
-});
+if (Config.socket.enable){
+  console.log('Socket server enabled');
 
-var message = io
-  .of('/message')
-  .on('connection', function (socket) {
-    socket.emit('the_message', { message: 'this is message from server' });
+  io.on('connection', function(socket){
+    console.log('an user connected');
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+      console.log(data);
+    });
+    socket.on('disconnect', function(){
+      console.log('user disconnected');
+    });
   });
+  io.sockets.on('connection', function (socket) {
+    console.log('socket server started')
+  });
+  
+  var message = io
+    .of('/message')
+    .on('connection', function (socket) {
+      socket.emit('the_message', { message: 'this is message from server' });
+    });
+  
+} 
 
 
-// Server App listening
+// App Server listening
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

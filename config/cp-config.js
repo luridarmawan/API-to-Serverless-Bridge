@@ -10,6 +10,9 @@ let Config = {
         name: 'Your System Name',
         apiBaseURL: 'https://api.carik.id'
       },
+      socket: {
+        enable: false
+      },
       facebook: {
         appId: 'your_facebook_appid',
         pixId: 'your_facebook_pixid'
