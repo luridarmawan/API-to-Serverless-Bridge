@@ -20,6 +20,13 @@ function status( codeStatus){
 function header( key, value){
     responseHeaders[key] = value;
 }
+function set( key, value){
+    header( key, value)
+}
+
+function type( value){
+    header( 'Content-Type', value)
+}
 
 function json(data = {}){
     response = data;
@@ -44,6 +51,8 @@ function send(){
 module.exports = {
     json,
     header,
+    set, // same with header
+    type, // Content-Type header
     status,
     getResponseCode,
     getResponseBody,
