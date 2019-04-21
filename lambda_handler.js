@@ -25,7 +25,7 @@ const controller = require('./controllers');
 const res = require('./utils/response_handler');
 
 module.exports.echoBridge = async (event, context, callback) => {
-  let headers = event['headers'] == undefined ? '' : event['headers'];
+  let requestHeaders = event['headers'] == undefined ? '' : event['headers'];
   let httpMethod = event['httpMethod'] == undefined ? 'function' : event['httpMethod'];
   let requestParams = event['pathParameters'] == undefined ? {} : event['pathParameters'];
   let requestQuery = event['queryStringParameters'] == undefined ? {} : event['queryStringParameters'];
@@ -35,6 +35,7 @@ module.exports.echoBridge = async (event, context, callback) => {
   let responseBody = {};
   let responseHeaders = {};
   let request = {
+    headers: requestHeaders,
     query: requestQuery,
     params: requestParams,
   }
