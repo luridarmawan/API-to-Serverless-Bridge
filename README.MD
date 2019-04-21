@@ -186,6 +186,12 @@ $ curl -X POST \
 
 Make sure read the documentation of [Nodejs Serverless Framework](https://serverless.com/framework/docs/).
 
+One thing we need to make sure before deploying this service is that we create and store the required AWS credentials. Details can be found [here](https://serverless.com/framework/docs/providers/aws/guide/credentials/). You can even use below command to set AWS credentials for serverless:
+
+```
+serverless config credentials --provider aws --key AWS_ACCESS_KEY --secret AWS_SECRET
+```
+
 [see serverless configuration file](serverless.yml)
 
 ```bash
@@ -217,6 +223,12 @@ functions:
 ```
 
 This command will automatically create the **Serverless Lambda Function** and **API Gateway** in the AWS account.
+
+We can invoke our lambda function using “invoke” command from the local system and get logs in response from lambda.
+
+```bash
+serverless invoke -f yourFunction -l
+```
 
 Manual test from terminal, method GET
 
