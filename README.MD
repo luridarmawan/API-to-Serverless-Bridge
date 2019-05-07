@@ -13,6 +13,7 @@ Bridge code that makes it easy to migrate the existing REST API to [AWS](https:/
 - [Solution](#solution)
 - [How to Build](#how-to-build)
 - [Conclusion](#conclusion)
+- [Swagger API Test](#swagger-api-test)
 - [Contributing](#contributing)
 - [References](#references)
 
@@ -273,6 +274,16 @@ $ curl -X POST \
 }
 ```
 
+## Swagger API Test
+
+
+This API demo is built in with Swagger API Test. You can access it from url [http://localhost:3000/api-docs/](http://localhost:3000/api-docs/)
+
+![Swagger 01](docs/img/swagger-01.png)
+
+![Swagger 01](docs/img/swagger-02.png)
+
+
 ## Conclusion
 
 As long as your API code is still quite simple, it is possible to start implementing serverless easily, without any changes from the previous code.
@@ -288,3 +299,4 @@ We are happy to accept more line code from the community. 🎉
 - [Amazon AWS Lambda Documentation](https://docs.aws.amazon.com/lambda/index.html)
 - [Amazon AWS API Gateway Documentation](https://docs.aws.amazon.com/apigateway/index.html)
 - [Nodejs Serverless Framework](https://serverless.com/)
+- [Swagger API Testtools](https://swagger.io/)

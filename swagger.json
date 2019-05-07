@@ -1,0 +1,179 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.0.1",
+    "date": "May 2019",
+    "title": "API to Serverless Bridge - Echo",
+    "description": "Bridge code that makes it easy to migrate the existing REST API to AWS Serverless with API Gateway, without too many changes in existing code.",
+    "termsOfService": "",
+    "contact": {
+      "name": "Github Page",
+      "url": "https://github.com/luridarmawan/API-to-Serverless-Bridge"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/test",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/echo": {
+      "get": {
+        "description": "Returns all querystring value",
+        "operationId": "echoGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "parameter01",
+            "in": "query",
+            "description": "string type parameter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "parameter02",
+            "in": "query",
+            "description": "integer type parameter",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "echo response",
+            "schema": {
+              "$ref": "#/definitions/echoResult"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Submit API with POST Method",
+        "operationId": "echoPush",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "postContent",
+            "in": "body",
+            "description": "Post Content in Json formated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postContentExample"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "echo response",
+            "schema": {
+              "$ref": "#/definitions/echoPostResult"
+            }
+          }
+        }
+      }
+    },
+    "/echo/{id}": {
+      "get": {
+        "description": "Returns a parameter based on a single ID.",
+        "operationId": "findEchoById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "find ID details",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "echo response",
+            "examples": {
+              "application/json": "{\"status\": 200,\"msg\": \"echo\",\"name\": \"Your System Name\",\"id\": \"abc\",\"query\": {}}"
+            },
+            "schema": {
+              "$ref": "#/definitions/echoResult"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "echoResult": {
+      "type": "object",
+      "required": [
+        "statusx"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "value": 200
+        },
+        "msg": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "query": {
+          "type": "object"
+        }
+      }
+    },
+    "echoPostResult": {
+      "type": "object",
+      "required": [
+        "statusx"
+      ],
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "value": 200
+        },
+        "msg": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "query": {
+          "type": "object"
+        },
+        "data": {
+          "type": "object"
+        }
+      }
+    },
+    "postContentExample": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "postData02": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
