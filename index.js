@@ -4,6 +4,9 @@ var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 const config = require('./config/config').Config;
 const environment = config.environment;
 const Config = config[environment];
@@ -26,8 +29,11 @@ app.use(function(req, res, next) {
 });
 
 const test = require('./routes/test/test_router');
-
 app.use('/test', test);
+
+// swagger
+app.use('/api-docs', swaggerUi.serve);
+app.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
 app.get('/',(req, res) => {
     let results = {
