@@ -29,8 +29,11 @@ Understanding Serverless and the use of Gateway API is quite a headache for some
 
 This repository should contain:
 
-- The code bridge library.
-- Example Echo API controllers.
+- The code bridge library,
+- Echo API controllers example,
+- PM2 configuration file,
+- Swagger API Test Tools,
+- Socket example.
 
 This repository does not contain:
 
@@ -110,6 +113,11 @@ I have created a **wrapper** / **bridge** that will make it easier to combine AW
 [See file "lambda_handler.js"](lambda_handler.js)
 
 ## How to Build
+
+### Prerequisite
+
+- NodeJs
+- Amazon Web Service (AWS) Account
 
 ### Build as Common API
 
