@@ -1,0 +1,23 @@
+{ 
+  "apps" : [{
+    "name" : "api:3000",
+    "script" : "index.js",
+    "instance": "0",
+    "exec_mode" : "cluster",
+    "env": {
+      "PORT": 3000,
+      "NODE_ENV": "development"
+    },
+    "env_production": {
+      "NODE_ENV": "production"
+    },
+    "env_staging": {
+      "name": "api-staging:3000",
+      "NODE_ENV": "staging"
+    },
+    "env_development": {
+      "name": "api-dev:3000",
+      "NODE_ENV": "development"
+    }
+ }]
+}
