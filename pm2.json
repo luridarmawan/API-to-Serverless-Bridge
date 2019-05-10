@@ -1,7 +1,7 @@
 { 
   "apps" : [{
     "name" : "api:3000",
-    "script" : "index.js",
+    "script" : "app/index.js",
     "instance": "0",
     "exec_mode" : "cluster",
     "env": {

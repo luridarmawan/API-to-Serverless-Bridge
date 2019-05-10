@@ -20,51 +20,52 @@
 
 const DEBUG_LOCAL = false;
 
-const fs = require('fs');
-const controller = require('./controllers');
+// const fs = require('fs');
+const echoController = require('./app/controllers/EchoController');
 const res = require('./utils/response_handler');
 
 module.exports.echoBridge = async (event, context, callback) => {
-  let requestHeaders = event['headers'] == undefined ? '' : event['headers'];
-  let httpMethod = event['httpMethod'] == undefined ? 'function' : event['httpMethod'];
-  let requestParams = event['pathParameters'] == undefined ? {} : event['pathParameters'];
-  let requestQuery = event['queryStringParameters'] == undefined ? {} : event['queryStringParameters'];
-  let requestQueryAsString = generateQueryString(requestQuery);
+  const requestHeaders = event['headers'] == undefined ? '' : event['headers'];
+  const httpMethod = event['httpMethod'] == undefined ? 'function' : event['httpMethod'];
+  const requestParams = event['pathParameters'] == undefined ? {} : event['pathParameters'];
+  const requestQuery = event['queryStringParameters'] == undefined ? {} : event['queryStringParameters'];
+  const requestQueryAsString = generateQueryString(requestQuery);
   let requestBody = event['body'] == undefined ? {} : event['body'];
-  let moduleName = requestQuery.mod;
   let responseBody = {};
   let responseHeaders = {};
-  let request = {
+  const request = {
+    method: httpMethod,
     headers: requestHeaders,
     query: requestQuery,
+    queryAsString: requestQueryAsString,
     params: requestParams,
-  }
+  };
+
   try {
     requestBody = JSON.parse(requestBody);
     request.body = requestBody;
   } catch (e) {
+    //
   }
 
-  //----- manual echo
-  /*
+  // ----- manual echo
   responseBody = {
     statusCode: 202,
     message: 'ECHO Function',
     method: httpMethod,
-    headers: headers,
+    headers: requestHeaders,
     params: requestParams,
     query: requestQuery,
     queryAsString: requestQueryAsString,
     body: requestBody,
-    //input: event,
+    // input: event,
   };
-  */
 
-  //------- YOUR CODE HERE
-  
-  if (httpMethod == 'GET'){
-    controller.echoController.echoGet(request, res);
+  // ------- YOUR CODE HERE
+  if (httpMethod === 'GET') {
+    echoController.echoGet(request, res);
   }
+  /*
   if (httpMethod == 'POST'){
     controller.echoController.echoPost(request, res);
   }
@@ -76,8 +77,8 @@ module.exports.echoBridge = async (event, context, callback) => {
   // header and body wrapper from existing api controller
   responseBody = res.getResponseBody();
   responseHeaders = res.getResponseHeaders();
-  
-  //------- YOUR CODE - END
+  */
+  // ------- YOUR CODE - END
   if (DEBUG_LOCAL) {
     callback(null, responseBody);
   }
@@ -91,7 +92,7 @@ module.exports.echoBridge = async (event, context, callback) => {
 };
 
 function generateQueryString(AQuery) {
-  var s = '';
+  let s = '';
   for (var item in AQuery) {
     s += item + '=' + AQuery[item] + '&';
   }
@@ -109,9 +110,9 @@ function isJson(str) {
 }
 
 function isNumeric(s) {
-  //return (typeof s == "number" && !isNaN(s));
-  var n = parseInt(s);
-  if (s == n) {
+  // return (typeof s == "number" && !isNaN(s));
+  const n = parseInt(s);
+  if (s === n) {
     return true;
   }
 }
@@ -120,16 +121,15 @@ function callbackFunction(par1, AResponse) {
   console.log(AResponse);
 }
 
-//local debug only
+// local debug only
 if (DEBUG_LOCAL) {
   console.log('LOCAL DEBUG');
-  //var s = fs.readFileSync('template/post.json', { encoding: 'utf8' });
-  let event = {
+  // let s = fs.readFileSync('template/post.json', { encoding: 'utf8' });
+  const event = {
     httpMethod: 'GET',
     queryStringParameters: {
       var1: 'value 1'
     }
-  }
+  };
   module.exports.echoBridge(event, '', callbackFunction);
 }
-

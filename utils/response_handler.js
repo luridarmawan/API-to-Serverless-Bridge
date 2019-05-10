@@ -1,61 +1,62 @@
 
-var code = 200;
+let code = 200;
+let responseHeaders = {};
 
-var response = {
-    responseData: {},
-    get data(){
-        return this.responseData
-    },
-    set data(AValue){
-        this.responseData = AValue;
-    } 
+let response = {
+  responseData: {},
+  get data() {
+    return this.responseData;
+  },
+  set data(AValue) {
+    this.responseData = AValue;
+  }
 };
 
-var responseHeaders = {};
 
-function status( codeStatus){
-    code = codeStatus;
+function status(codeStatus) {
+  code = codeStatus;
 }
 
-function header( key, value){
-    responseHeaders[key] = value;
+function header(key, value) {
+  responseHeaders[key] = value;
 }
-function set( key, value){
-    header( key, value)
-}
-
-function type( value){
-    header( 'Content-Type', value)
+function set(key, value) {
+  header(key, value)
 }
 
-function json(data = {}){
-    response = data;
-    return data;
+function type(value) {
+  header('Content-Type', value)
 }
 
-function getResponseCode(){
-    return code;
+function json(data = {}) {
+  response = data;
+  return data;
 }
 
-function getResponseBody(){
-    return response;
+function getResponseCode() {
+  return code;
 }
 
-function getResponseHeaders(){
-    return responseHeaders;
+function getResponseBody() {
+  return response;
 }
 
-function send(){
+function getResponseHeaders() {
+  return responseHeaders;
+}
+
+function send() {
+  // TODO: create send function
 }
 
 module.exports = {
-    json,
-    header,
-    set, // same with header
-    type, // Content-Type header
-    status,
-    getResponseCode,
-    getResponseBody,
-    getResponseHeaders,
-    send
-}
+  json,
+  header,
+  set, // same with header
+  type, // Content-Type header
+  status,
+  getResponseCode,
+  getResponseBody,
+  getResponseHeaders,
+  send
+};
